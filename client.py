@@ -27,7 +27,7 @@ from uwebsockets.client import connect
 connect_wiffi()
 
 try:
-    wit connect(f"ws//{SERVER_IP}:{SERVER_PORT}") as ws:
+    with connect(f"ws//{SERVER_IP}:{SERVER_PORT}") as ws:
         print("Conectado al servidor NiceGui")
         while True:
             val = pot.read()
