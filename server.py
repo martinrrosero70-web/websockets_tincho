@@ -32,11 +32,18 @@ async def ws_server_logic(websocket, path):
     @ui.refreshable
     def ui_update():
         with ui.card().classes("items-center q-pa-lg"):
-        ui.label(f"Potenciometro: {data["pot_value"]}").classes("text-h3")
+            ui.label(f"Potenciometro: {data["pot_value"]}").classes("text-h3")
 
-        val = int(data["pot_value"]) if data["pot_value"].isdigit else 0
-        ui.knob(value=val, min=0, max=4095, show_value=True).classes("m-4")
-        
-        ui.label(f"led: {data["led_status"]}"),classes("text-h3")
+            val = int(data["pot_value"]) if data["pot_value"].isdigit else 0
+            ui.knob(value=val, min=0, max=4095, show_value=True).classes("m-4")
+            ui.label(f"LED: {data["led_status"]}"),classes("text-h3")
+            ui.button("cambiar led", on_click=toggle_led).props("elevated")
+
+@ui.page("/")
+def index():
+    ui.label("dashboard IoT: NIceGUI + MicroPython").classes("text-h4 q-ma-md")
+    ui_update()
+
+ui.run(host="0.0.0.0", port=8080, title="control sp32")            
 
   
